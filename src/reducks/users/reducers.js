@@ -10,8 +10,13 @@ export const UsersReducer = (state = initialState, action) => {
       };
     case Actions.SIGN_OUT:
       return {
-        ...initialState,
+        ...action.payload
       };
+    case Actions.NEW_BOOK:
+      return {
+        ...state,
+        ...action.payload
+      }
     default:
       return state;
   }

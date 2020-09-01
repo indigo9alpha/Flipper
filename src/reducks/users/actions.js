@@ -6,6 +6,8 @@ export const signInAction = (userState) => {
       isSignedIn: true,
       uid: userState.uid,
       username: userState.username,
+      books: userState.books,
+      pages: userState.pages,
     },
   };
 };
@@ -18,6 +20,20 @@ export const signOutAction = () => {
       isSignedIn: false,
       uid: "",
       username: "",
+      books: [],
+      pages: 0,
     },
   };
 };
+
+export const NEW_BOOK = "NEW_BOOK";
+export const newBookAction =(userState) => {
+  return {
+    type: "NEW BOOK",
+    payload: {
+      books:userState.books,
+      pages:userState.pages
+    }
+  }
+}
+

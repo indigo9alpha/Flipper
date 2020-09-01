@@ -13,7 +13,9 @@ export const store = createStore(history);
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+
+        <App />
+
     </ConnectedRouter>
   </Provider>,
   document.getElementById("root")
