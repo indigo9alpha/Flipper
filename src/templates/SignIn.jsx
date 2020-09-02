@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { TextInput, PrimaryButton } from "../components/UI-kit";
 import { signIn } from "../reducks/users/operations";
 import {push} from 'connected-react-router'
+import "../assets/style.css";
+
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -25,8 +27,9 @@ const SignIn = () => {
   );
 
   return (
-    <div>
-      <h2>Sign In</h2>
+    <div className="c-section-container">
+      <h2 className="text-center">Sign In</h2>
+      <div className="module-spacer--medium" />
       <div>
         <TextInput
           fullWidth={true}
@@ -48,14 +51,24 @@ const SignIn = () => {
           type={"password"}
           onChange={inputPassword}
         />
-        <PrimaryButton
-          label={"Sign In"}
-          onClick={() =>
-            dispatch(signIn(email, password))
-          }
-        />
-        <p onClick={() => dispatch(push('/signup'))}>アカウント登録</p>
-        <p onClick={() => dispatch(push('/signin/reset'))}>パスワードを忘れた</p>
+        <div className="module-spacer--medium" />
+        <div className="text-center">
+          <PrimaryButton
+            label={"Sign In"}
+            onClick={() => dispatch(signIn(email, password))}
+          />
+          <div className="module-spacer--small" />
+          <PrimaryButton
+            label={"ゲストユーザー"}
+            onClick={() => dispatch(signIn('guest@gmail.com', 'password'))}
+          />
+          <p className="link" onClick={() => dispatch(push("/signup"))}>
+            アカウント登録
+          </p>
+          <p className="link" onClick={() => dispatch(push("/signin/reset"))}>
+            パスワードを忘れた
+          </p>
+        </div>
       </div>
     </div>
   );

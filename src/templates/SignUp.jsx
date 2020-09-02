@@ -3,6 +3,7 @@ import {useDispatch} from 'react-redux'
 import { TextInput, PrimaryButton } from "../components/UI-kit";
 import{signUp} from '../reducks/users/operations'
 import {push} from 'connected-react-router'
+import '../assets/style.css'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -41,8 +42,9 @@ const SignUp = () => {
   );
 
   return (
-    <div>
-      <h2>Sign Up</h2>
+    <div className="c-section-container">
+      <h2 className="text-center">Sign Up</h2>
+      <div className="module-spacer--medium" />
       <div>
         <TextInput
           fullWidth={true}
@@ -84,13 +86,18 @@ const SignUp = () => {
           type={"password"}
           onChange={inputConfirmPassword}
         />
+        <div className="module-spacer--medium" />
+        <div className="text-center">
         <PrimaryButton
           label={"アカウントを登録する"}
           onClick={() =>
             dispatch(signUp(username, email, password, confirmPassword))
           }
         />
-        <p onClick={() => dispatch(push("/signin"))}>アカウントをお持ちの方はこちら</p>
+        <p className="link" onClick={() => dispatch(push("/signin"))}>
+          アカウントをお持ちの方はこちら
+        </p>
+        </div>
       </div>
     </div>
   );

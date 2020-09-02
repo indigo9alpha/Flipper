@@ -163,19 +163,16 @@ export const searchAndSetBook = (isbn) => {
        };
      })
      .then((book) => {
-       console.log(book)
+       
        const uid = getState().users.uid
        const pages = getState().users.pages
        const books = getState().users.books
 
-       console.log("実行前のストア、pages: " + pages);
-       console.log("実行前のストア、books: " + books);
 
        const newPages = pages + book['pages']
        books.push(book)
        
 
-       console.log("newPages: " + newPages);
       
       // ストアを更新
        dispatch(
@@ -193,6 +190,75 @@ export const searchAndSetBook = (isbn) => {
      })
      .then(() => {
        alert('登録が完了しました')
+     })
+     .catch((error) => {
+       alert(`エラー！: ${error}`)
      });
   }
 };
+
+export const deleteBook = (title,pages) => {
+  return async(dispatch, getState) => {
+    const uid = getState().users.uid;
+    const oldPages = getState().users.pages;
+    const oldBooks = getState().users.books;
+
+
+    const newPages = oldPages - pages
+    const newBooks = oldBooks.filter(book => book.title !== title)
+
+    dispatch(
+      newBookAction({
+        pages:newPages,
+        books:newBooks
+      })
+    )
+
+    db.collection('users').doc(uid).update({
+      pages:newPages,
+      books:newBooks
+    })
+    .then(() => {
+      alert('削除しました。更新してください')
+    })
+    .catch((error) => {
+      alert(`エラー！: ${error}`)
+    })
+  }
+}
+
+// export const signInAsGuest = () => {
+//   return async(dispatch) => {
+
+//     auth.signInAnonymously()
+//     .then((result) => {
+//       const user = result.user;
+
+//       if (user) {
+
+//         db.collection('users')
+//         .doc(uid)
+//         .get()
+//         .then((snapshot) => {
+//           const data = snapshot.data()
+
+//           console.log(data)
+
+//           dispatch(
+//             signInAction({
+//               isSignedIn: true,
+//               uid: uid,
+//               username: data.username,
+//               books: data.books,
+//               pages: data.pages,
+//             })
+//           );
+//           dispatch(push('/'))
+//         })
+//       }
+//     })
+//     .catch((error) => {
+//       alert(`エラー: ${error}`)
+//     })
+//   }
+// }

@@ -14,7 +14,7 @@ const List = () => {
 
   return (
     <>
-      <div className="wrapper">
+      <div>
         <div>
           <IconButton
             onClick={() => {
@@ -24,10 +24,11 @@ const List = () => {
             <ArrowLeftIcon />
           </IconButton>
         </div>
-        <div className="center">
+        <div className="header-text">
           <h2>You have read {books.length} books ever</h2>
         </div>
       </div>
+      <div className="module-spacer--small" />
       <div>
         <BookCardList />
       </div>

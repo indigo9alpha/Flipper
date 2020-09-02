@@ -1,25 +1,44 @@
+/*********** Module Spacer ***********/
+.module-spacer--extra-extra-small {
+    height: 12px
+}
+.module-spacer--extra-small {
+    height: 12px
+}
+.module-spacer--small {
+    height: 20px
+}
+.module-spacer--medium {
+    height: 32px
+}
+
+
+/*********** Common ***********/
+.center {
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.header-right {
+  margin: 0 0 0 auto;
+}
+
+.header-left{
+  margin: 0 auto 0 0 ;
+}
+
 .icons {
   display: inline-block;
   margin: "0 0 0 auto";
 }
 
-.center {
-  margin: 0 auto;
+.link:hover {
+  cursor: pointer;
 }
-
-.wrapper {
-  display: flex;
-}
-
-.header {
-  margin: 0 0 0 auto;
-}
-
-/* .grid_row {
-  display: flex;
-  flex-flow: row wrap;
-} */
-
+/*********** Book Card ***********/
 .book-card {
   border: solid 1px #e0e0e0;
   height: 256px;
@@ -35,14 +54,12 @@
   text-align: center;
 }
 
-.book-card-delete {
-  color:red;
-  font-weight: bold;
+.book-card-delete {  
   position: absolute;
   top:0;
   right:0;
   opacity: 0;
-}
+} 
 
 .book-card-delete:hover {
   opacity: 1;
@@ -51,14 +68,92 @@
 
 .section-wrapper {
   margin: 0 auto;
-  max-width: 575px;
+  height: 100%;
   padding: 0 1rem;
   width: 100%;
   display: flex;
   flex-flow: row wrap;
 }
 
+/*********** Section ***********/
+.c-section-container {
+    margin: 0 auto; 
+    max-width: 400px;
+    padding: 1rem;
+    height: auto;
+    width: calc(100% - 2rem);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/*********** Home ***********/
+.home-section {
+  margin: 0 auto;
+    max-width: 575px;
+    position: relative;
+    padding: 0 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+.you-have-read {
+  margin-left:20px;
+  font-size: 32px;
+  animation-name:fade-in;
+  animation-duration: 1.5s;
+}
+
+.pages-number {
+  text-align: center;
+  height:240px;
+  font-size: 100px;
+}
+
+.pages-ever {
+  font-size: 32px;
+  text-align: right;
+  margin-right: 20px;
+  opacity: 0;
+  animation-name:fade-in;
+  animation-duration: 1s;
+  animation-delay: 2s;
+  animation-fill-mode:forwards;
+}
+
+.input-and-button {
+  margin:0 auto;
+  width: 100%;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+/*********** ListPage ***********/
+.header-text {
+  text-align: center;
+  font-size: 32px
+}
+
 @media screen and (min-width: 576px) {
+      /*********** Module Spacer ***********/
+    .module-spacer--extra-extra-small {
+        height: 16px
+    }
+    .module-spacer--extra-small {
+        height: 20px
+    }
+    .module-spacer--small {
+        height: 32px
+    }
+    /*********** List ***********/
   .section-wrapper {
     max-width: 1024px;
   }
@@ -66,4 +161,29 @@
     width: 20%;
     margin: 16px;
   }
+  /*********** Home ***********/
+  .home-section {
+    max-width: max-content;
+  }
+  .you-have-read {
+  margin-left:60px;
+  font-size: 70px;
+}
+
+.pages-number {
+  text-align: center;
+  height:240px;
+  font-size: 180px;
+}
+
+.pages-ever {
+  font-size: 70px;
+  text-align: right;
+  margin-right: 60px;
+}
+
+.input-and-button {
+  margin:0 auto;
+  width: 512px;
+}
 }

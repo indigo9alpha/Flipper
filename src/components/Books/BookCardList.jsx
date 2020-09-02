@@ -11,7 +11,7 @@ const BookCardList = () => {
     <div className="section-wrapper">
         {books.length > 0 && (
           books.map((book,index) => (
-            <BookCard key={index} book={book} />
+            <BookCard key={index} book={book} title={book.title} pages={book.pages}/>
           ))
         )}
     </div>

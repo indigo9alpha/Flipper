@@ -8,7 +8,6 @@ import { listenAuthState } from "./reducks/users/operations";
 const Auth = ({ children }) => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
-
   const isSignedIn = getIsSignedIn(selector);
 
   useEffect(() => {

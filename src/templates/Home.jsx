@@ -3,59 +3,64 @@ import { useDispatch, useSelector } from "react-redux";
 import { PrimaryButton, TextInput } from "../components/UI-kit";
 import { HomeHeader } from "../components/Header";
 import "../assets/style.css";
-import { getUserId, getPages, getBooks } from "../reducks/users/selectors";
+import {getPages} from "../reducks/users/selectors";
 import { searchAndSetBook } from "../reducks/users/operations";
+import CountUp from "react-countup";
 
 const Home = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
-  const uid = getUserId(selector);
-  const Pages = getPages(selector);
-  const books = getBooks(selector);
-
-
+  const pages = getPages(selector);
 
   const [bookCode, setBookCode] = useState("");
-
+  
   const inputBookCode = useCallback((event) => {
     setBookCode(event.target.value);
   }, []);
 
-  console.log("render!!:    " + uid, Pages, books);
+  console.log(pages)
 
   return (
     <>
-      <div className="wrapper">
-        <div>
+    <section className="">
+      <div className="flex">
+        <div className="you-have-read">
           <p>You have read</p>
         </div>
-        <div className="header">
+        <div className="header-right">
           <HomeHeader />
         </div>
       </div>
-      <div>
-        <h2>{Pages}</h2>
+      <div className="pages-number">
+        <CountUp end={pages} duration={2} delay={0} />
+      </div>
+      <div className="pages-ever">
         <p>pages ever</p>
       </div>
-      <div>
-        <TextInput
-          fullWidth={false}
-          label={"enter code"}
-          multiline={false}
-          rows={1}
-          value={bookCode}
-          type={"number"}
-          onChange={inputBookCode}
-        />
+
+      <div className="input-and-button">
+        <div>
+          <TextInput
+            fullWidth={true}
+            label={"enter ISBN code"}
+            multiline={false}
+            rows={1}
+            value={bookCode}
+            type={"number"}
+            onChange={inputBookCode}
+          />
+        </div>
+        <div className="module-spacer--medium" />
+        <div className="text-center">
+          <PrimaryButton
+            label={"READ!"}
+            onClick={() => {
+              dispatch(searchAndSetBook(bookCode));
+            }}
+          />
+        </div>
       </div>
-      <div>
-        <PrimaryButton
-          label={"firebase"}
-          onClick={() => {
-            dispatch(searchAndSetBook(bookCode));
-          }}
-        />
-      </div>
+    </section>
     </>
   );
 };
