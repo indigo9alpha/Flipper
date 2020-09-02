@@ -140,9 +140,9 @@ export const listenAuthState = () => {
   };
 };
 
-export const searchBook = (isbn) => {
+export const searchAndSetBook = (isbn) => {
   return async(dispatch,getState) => {
-
+    // 本のデータを取得
     fetch(
      `https://www.googleapis.com/books/v1/volumes?q=${isbn}&maxResults=1`,
      {}
@@ -155,6 +155,7 @@ export const searchBook = (isbn) => {
        }
      })
      .then((data) => {
+      //  必要なデータをオブジェクトにする
        return {
          title: data.items[0].volumeInfo.title,
          pages: data.items[0].volumeInfo.pageCount,
@@ -176,7 +177,7 @@ export const searchBook = (isbn) => {
 
        console.log("newPages: " + newPages);
       
- 
+      // ストアを更新
        dispatch(
          newBookAction({
            pages: newPages,
@@ -184,18 +185,14 @@ export const searchBook = (isbn) => {
          })
        );
  
+      //  データベースを更新
        db.collection("users").doc(uid).update({
          pages: newPages,
          books: books
        });
+     })
+     .then(() => {
+       alert('登録が完了しました')
      });
   }
-};
-
-export const setData = (searchBook) => {
-  return async (dispatch, getState) => {
-    searchBook().then((book) => {
-      console.log(book);
-    })
-  };
 };
