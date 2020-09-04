@@ -18,7 +18,6 @@ const Home = () => {
     setBookCode(event.target.value);
   }, []);
 
-  console.log(pages)
 
   return (
     <>
@@ -56,6 +55,7 @@ const Home = () => {
             label={"READ!"}
             onClick={() => {
               dispatch(searchAndSetBook(bookCode));
+              setBookCode("")
             }}
           />
         </div>

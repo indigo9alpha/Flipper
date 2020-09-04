@@ -141,124 +141,85 @@ export const listenAuthState = () => {
 };
 
 export const searchAndSetBook = (isbn) => {
-  return async(dispatch,getState) => {
+  return async (dispatch, getState) => {
     // 本のデータを取得
     fetch(
-     `https://www.googleapis.com/books/v1/volumes?q=${isbn}&maxResults=1`,
-     {}
-   )
-     .then((response) => {
-       if (response.status === 200) {
-         return response.json();
-       } else {
-         throw new Error("データの取得に失敗しました");
-       }
-     })
-     .then((data) => {
-      //  必要なデータをオブジェクトにする
-       return {
-         title: data.items[0].volumeInfo.title,
-         pages: data.items[0].volumeInfo.pageCount,
-         image: data.items[0].volumeInfo.imageLinks["thumbnail"],
-       };
-     })
-     .then((book) => {
-       
-       const uid = getState().users.uid
-       const pages = getState().users.pages
-       const books = getState().users.books
+      `https://www.googleapis.com/books/v1/volumes?q=${isbn}&maxResults=1`,
+      {}
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("データの取得に失敗しました");
+        }
+      })
+      .then((data) => {
+        //  必要なデータのみのオブジェクトを作成
+        return {
+          title: data.items[0].volumeInfo.title,
+          pages: data.items[0].volumeInfo.pageCount,
+          image: data.items[0].volumeInfo.imageLinks["thumbnail"],
+        };
+      })
+      .then((book) => {
+        const uid = getState().users.uid;
+        const pages = getState().users.pages;
+        const books = getState().users.books;
 
+        const newPages = pages + book["pages"];
+        books.unshift(book);
 
-       const newPages = pages + book['pages']
-       books.push(book)
-       
+        // ストアを更新
+        dispatch(
+          newBookAction({
+            pages: newPages,
+            books: books
+          })
+        );
 
-      
-      // ストアを更新
-       dispatch(
-         newBookAction({
-           pages: newPages,
-           books: books
-         })
-       );
- 
-      //  データベースを更新
-       db.collection("users").doc(uid).update({
-         pages: newPages,
-         books: books
-       });
-     })
-     .then(() => {
-       alert('登録が完了しました')
-     })
-     .catch((error) => {
-       alert(`エラー！: ${error}`)
-     });
-  }
+        //  データベースを更新
+        db.collection("users").doc(uid).update({
+          pages: newPages,
+          books: books
+        });
+      })
+      .then(() => {
+        alert("登録が完了しました");
+      })
+      .catch((error) => {
+        alert(`エラー！: ${error}`);
+      });
+  };
 };
 
-export const deleteBook = (title,pages) => {
-  return async(dispatch, getState) => {
+export const deleteBook = (title, pages) => {
+  return async (dispatch, getState) => {
     const uid = getState().users.uid;
     const oldPages = getState().users.pages;
     const oldBooks = getState().users.books;
 
-
-    const newPages = oldPages - pages
-    const newBooks = oldBooks.filter(book => book.title !== title)
+    const newPages = oldPages - pages;
+    const newBooks = oldBooks.filter((book) => book.title !== title);
 
     dispatch(
       newBookAction({
-        pages:newPages,
-        books:newBooks
+        pages: newPages,
+        books: newBooks,
       })
-    )
+    );
 
-    db.collection('users').doc(uid).update({
-      pages:newPages,
-      books:newBooks
-    })
-    .then(() => {
-      alert('削除しました。更新してください')
-    })
-    .catch((error) => {
-      alert(`エラー！: ${error}`)
-    })
-  }
-}
-
-// export const signInAsGuest = () => {
-//   return async(dispatch) => {
-
-//     auth.signInAnonymously()
-//     .then((result) => {
-//       const user = result.user;
-
-//       if (user) {
-
-//         db.collection('users')
-//         .doc(uid)
-//         .get()
-//         .then((snapshot) => {
-//           const data = snapshot.data()
-
-//           console.log(data)
-
-//           dispatch(
-//             signInAction({
-//               isSignedIn: true,
-//               uid: uid,
-//               username: data.username,
-//               books: data.books,
-//               pages: data.pages,
-//             })
-//           );
-//           dispatch(push('/'))
-//         })
-//       }
-//     })
-//     .catch((error) => {
-//       alert(`エラー: ${error}`)
-//     })
-//   }
-// }
+    db.collection("users")
+      .doc(uid)
+      .update({
+        pages: newPages,
+        books: newBooks,
+      })
+      .then(() => {
+        alert("削除しました。更新してください");
+      })
+      .catch((error) => {
+        alert(`エラー！: ${error}`);
+      });
+  };
+};

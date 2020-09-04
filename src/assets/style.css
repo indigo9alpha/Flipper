@@ -107,7 +107,7 @@
 
 .pages-number {
   text-align: center;
-  height:240px;
+  height:160px;
   font-size: 100px;
 }
 
@@ -166,7 +166,7 @@
     max-width: max-content;
   }
   .you-have-read {
-  margin-left:60px;
+  margin-left:90px;
   font-size: 70px;
 }
 
@@ -179,7 +179,7 @@
 .pages-ever {
   font-size: 70px;
   text-align: right;
-  margin-right: 60px;
+  margin-right: 90px;
 }
 
 .input-and-button {
