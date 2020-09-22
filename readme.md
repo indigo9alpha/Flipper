@@ -1,4 +1,6 @@
 # flipper
+![Flipper](https://user-images.githubusercontent.com/69807657/93843924-8bfc7380-fcd6-11ea-8e80-232b8e191aa8.gif)
+
 
 flipperはシンプルな読書管理アプリです。
 
