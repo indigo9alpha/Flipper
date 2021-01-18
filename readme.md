@@ -40,5 +40,4 @@ Flipperには、こちらからアクセスできます。
 
 ## 文責
 
-* Rei Tanaka
 * [@indigo9alpha](https://twitter.com/indigo9alpha)
